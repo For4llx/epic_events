@@ -21,7 +21,6 @@ STATUS = [
 
 
 class Staff(models.Model):
-    staff_id =  models.BigAutoField(primary_key=True)
     staff_user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
@@ -30,7 +29,6 @@ class Staff(models.Model):
 
 
 class Client(models.Model):
-    client_id = models.BigAutoField(primary_key=True)
     client_user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
@@ -46,7 +44,6 @@ class Client(models.Model):
 
 
 class Event(models.Model):
-    event_id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50)
     status = models.CharField(choices=STATUS, default='', max_length=50)
     support = models.ForeignKey(
@@ -57,7 +54,6 @@ class Event(models.Model):
 
 
 class Contract(models.Model):
-    contract_id = models.BigAutoField(primary_key=True)
     client_id = models.ForeignKey(
         to=Client,
         on_delete=models.CASCADE,
