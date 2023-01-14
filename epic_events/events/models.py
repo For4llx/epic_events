@@ -39,8 +39,17 @@ class Client(models.Model):
     sales_contact = models.ForeignKey(
         to=Staff,
         on_delete=models.CASCADE,
-        blank=True)
+        blank=True,
+        null=True)
     type = models.CharField(choices=TYPES, default='', max_length=50)
+
+
+class Contract(models.Model):
+    client_id = models.ForeignKey(
+        to=Client,
+        on_delete=models.CASCADE,
+        blank=True) 
+    date_created = models.DateTimeField(auto_now_add=True)
 
 
 class Event(models.Model):
@@ -49,17 +58,10 @@ class Event(models.Model):
     support = models.ForeignKey(
         to=Staff,
         on_delete=models.CASCADE,
-        blank=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-
-
-class Contract(models.Model):
-    client_id = models.ForeignKey(
-        to=Client,
-        on_delete=models.CASCADE,
-        blank=True)
-    event_id = models.ForeignKey(
-        to=Event,
+        blank=True,
+        null=True)
+    contract_id = models.ForeignKey(
+        to=Contract,
         on_delete=models.CASCADE,
         blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
