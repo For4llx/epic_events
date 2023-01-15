@@ -21,7 +21,7 @@ STATUS = [
 
 
 class Staff(models.Model):
-    staff_user = models.ForeignKey(
+    user_id = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
         blank=True)
@@ -29,7 +29,7 @@ class Staff(models.Model):
 
 
 class Client(models.Model):
-    client_user = models.ForeignKey(
+    user_id = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
         blank=True)
