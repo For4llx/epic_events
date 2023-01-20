@@ -6,7 +6,7 @@ class ClientAdmin(admin.ModelAdmin):
     ordering = ['id']
 
 class StaffAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id')
+    list_display = ('id', 'user_id', 'permission')
     ordering = ['id']
 
 class ContractAdmin(admin.ModelAdmin):
@@ -14,7 +14,7 @@ class ContractAdmin(admin.ModelAdmin):
     ordering = ['id']
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'status')
     ordering = ['id']
 
 

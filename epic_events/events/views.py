@@ -23,12 +23,12 @@ class UserViewset(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     detail_serializer_class = UserDetailSerializer
-    permission_classes = [IsManagementTeam]
+    permission_classes = [IsAuthenticated, IsManagementTeam]
 
     def get_serializer_class(self):
         """
         Every action will use a detail serializer
-        except the listing of all the projects.
+        except listing.
         """
         if self.action != 'list':
             return self.detail_serializer_class
@@ -40,12 +40,12 @@ class StaffViewset(ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffSerializer
     detail_serializer_class = StaffDetailSerializer
-    permission_classes = [IsManagementTeam]
+    permission_classes = [IsAuthenticated, IsManagementTeam]
 
     def get_serializer_class(self):
         """
         Every action will use a detail serializer
-        except the listing of all the projects.
+        except the listing.
         """
         if self.action != 'list':
             return self.detail_serializer_class
@@ -57,12 +57,12 @@ class ClientViewset(ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     detail_serializer_class = ClientDetailSerializer
-    permission_classes = [IsSalesTeam|IsManagementTeam]
+    permission_classes = [IsAuthenticated, IsSalesTeam|IsManagementTeam]
 
     def get_serializer_class(self):
         """
         Every action will use a detail serializer
-        except the listing of all the projects.
+        except the listing.
         """
         if self.action != 'list':
             return self.detail_serializer_class
@@ -74,12 +74,12 @@ class ContractViewset(ModelViewSet):
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     detail_serializer_class = ContractDetailSerializer
-    permission_classes = [IsSalesTeam]
+    permission_classes = [IsAuthenticated, IsSalesTeam]
 
     def get_serializer_class(self):
         """
         Every action will use a detail serializer
-        except the listing of all the projects.
+        except the listing.
         """
         if self.action != 'list':
             return self.detail_serializer_class
@@ -91,12 +91,12 @@ class EventViewset(ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     detail_serializer_class = EventDetailSerializer
-    permission_classes = [IsSalesTeam|IsSupportTeam]
+    permission_classes = [IsAuthenticated, IsSalesTeam|IsSupportTeam]
 
     def get_serializer_class(self):
         """
         Every action will use a detail serializer
-        except the listing of all the projects.
+        except the listing.
         """
         if self.action != 'list':
             return self.detail_serializer_class
