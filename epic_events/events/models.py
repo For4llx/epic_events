@@ -21,18 +21,19 @@ STATUS = [
 
 
 class Staff(models.Model):
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         to=User,
-        on_delete=models.CASCADE,
-        blank=True)
+        on_delete=models.CASCADE)
     permission = models.CharField(choices=PERMISSIONS, default='', max_length=50)
+
+    def __str__(self):
+        return self.user.email
 
 
 class Client(models.Model):
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         to=User,
-        on_delete=models.CASCADE,
-        blank=True)
+        on_delete=models.CASCADE)
     phone = models.CharField(max_length=50)
     mobile = models.CharField(max_length=50)
     company_name = models.CharField(max_length=50)
@@ -43,9 +44,11 @@ class Client(models.Model):
         null=True)
     type = models.CharField(choices=TYPES, default='', max_length=50)
 
+    def __str__(self):
+        return self.user.email
 
 class Contract(models.Model):
-    client_id = models.ForeignKey(
+    client = models.ForeignKey(
         to=Client,
         on_delete=models.CASCADE,
         blank=True) 
@@ -60,7 +63,7 @@ class Event(models.Model):
         on_delete=models.CASCADE,
         blank=True,
         null=True)
-    contract_id = models.ForeignKey(
+    contract = models.ForeignKey(
         to=Contract,
         on_delete=models.CASCADE,
         blank=True)
