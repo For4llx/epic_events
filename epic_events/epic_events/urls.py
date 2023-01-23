@@ -1,4 +1,4 @@
-"""epic_events URL Configuration
+"""softdesk URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -14,8 +14,29 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,)
+from events.views import (
+    ClientViewset,
+    ContractViewset,
+    EventViewset,
+    StaffViewset,
+    UserViewset)
+
+router = routers.SimpleRouter()
+router.register('users', UserViewset, basename='users')
+router.register('staffs', StaffViewset, basename='staffs')
+router.register('clients', ClientViewset, basename='clients')
+router.register('contracts', ContractViewset, basename='contracts')
+router.register('events', EventViewset, basename='events')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
