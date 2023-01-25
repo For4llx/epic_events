@@ -7,7 +7,10 @@ class ClientAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         staff = Staff.objects.get(user_id=request.user.id)
-        return super().get_queryset(request).filter(sales_contact=staff.id)
+        if staff.permission == "sales":
+            return super().get_queryset(request).filter(sales_contact=staff.id)
+        elif staff.permission == "management":
+            return super().get_queryset(request)
 
 class StaffAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'permission')
@@ -20,8 +23,11 @@ class ContractAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         staff = Staff.objects.get(user_id=request.user.id)
-        client = Client.objects.get(sales_contact=staff.id)
-        return super().get_queryset(request).filter(client_id=client.id)
+        if staff.permission == "sales":
+            client = Client.objects.get(sales_contact=staff.id)
+            return super().get_queryset(request).filter(client_id=client.id)
+        elif staff.permission == "management":
+            return super().get_queryset(request)
     
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         staff = Staff.objects.get(user_id=request.user.id)
@@ -35,7 +41,10 @@ class EventAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         staff = Staff.objects.get(user_id=request.user.id)
-        return super().get_queryset(request).filter(support=staff.id)
+        if staff.permission == "support":
+            return super().get_queryset(request).filter(support=staff.id)
+        elif staff.permission == "management":
+            return super().get_queryset(request)
     
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         staff = Staff.objects.get(user_id=request.user.id)

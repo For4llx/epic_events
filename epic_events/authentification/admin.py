@@ -6,7 +6,7 @@ from .forms import UserChangeForm, UserCreationForm
 class UserAdmin(admin.ModelAdmin):
     form = UserCreationForm
     add_form = UserCreationForm
-    list_display = ('email','is_staff')
+    list_display = ('id', 'email', 'is_staff')
     search_fields = ('email',)
 
 admin.site.register(User, UserAdmin)

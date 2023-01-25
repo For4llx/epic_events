@@ -16,9 +16,9 @@ class IsSalesTeam(BasePermission):
             if isinstance(obj, Client):
                 return obj.sales_contact == staff
             elif isinstance(obj, Contract):
-                return obj.client_id.sales_contact == staff
+                return obj.client.sales_contact == staff
             elif isinstance(obj, Event):
-                return obj.contract_id.client_id.sales_contact == staff
+                return obj.contract.client.sales_contact == staff
         else:
             return False
 
