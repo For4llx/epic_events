@@ -43,7 +43,7 @@ class EventAdmin(admin.ModelAdmin):
         staff = Staff.objects.get(user_id=request.user.id)
         if staff.permission == "support":
             return super().get_queryset(request).filter(support=staff.id)
-        elif staff.permission == "management":
+        else:
             return super().get_queryset(request)
     
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
