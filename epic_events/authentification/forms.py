@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django import forms 
+from django import forms
 from .models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
@@ -12,7 +12,8 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email','password1', 'password2', 'groups', 'is_staff')
+        fields = '__all__'
+        exclude = ('password',)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -40,4 +41,4 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = '__all__'
